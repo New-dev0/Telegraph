@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="TelegraphApp.MediaUpload.SingleUpload"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TelegraphApp.MediaUpload"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700" Background="WhiteSmoke">
+    <Grid Margin="50,10,0,0">
+        <Border Name="MediaBord" Height="350" Width="500"  HorizontalAlignment="Center" BorderThickness="2" VerticalAlignment="Center" Background="AliceBlue" CornerRadius="45" BorderBrush="#FF060202">
+            <Grid>
+                <MediaElement Name="MediaMedia" MaxWidth="500" Margin="0, 45,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <TextBlock Name="MediaName" Margin="0,60,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5F2929" FontStyle="Italic"/>
+                <Border Background="FloralWhite" Height="40" Width="250" CornerRadius="15" Margin="0,180,0,0" BorderBrush="Black" BorderThickness="1.5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid VerticalAlignment="Center" Width="250">
+                        <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="uRLbOX" Height="40" Padding="10,4,0,0" Text=""  FontSize="20" TextAlignment="Left" HorizontalAlignment="Left" FontFamily="Comic Sans MS"  Width="200" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="#FF7E90F5" />
+                        <Border BorderThickness="1" CornerRadius="0,15,15,0"  Margin="0,-1,2.5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="60" Height="40">
+                            <Button Name="CopyButton" Width="50" Content="Copy" Height="40" Background="#FFE1FFE1" FontSize="15" FontFamily="Cascadia Mono SemiBold" Padding="0,2,0,0" FontWeight="Bold" Foreground="#FF041710" Margin="-1,-1,-1,-1" Click="Button_Click" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="0,15,15,0" />
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border  CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <TextBlock Name="ClipCopy" Width="200" Margin="0,0,0,3" FontSize="14" Foreground="Black" Text="Copied to Clipboard!" Visibility="Collapsed" TextAlignment="Center"></TextBlock>
+                </Border>
+                <Button Width="70" Height="37" FontSize="14" Padding="5"  Content="New" Background="WhiteSmoke" BorderThickness="1.5" Margin="0,0,24,3" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontFamily="Lucida Sans Unicode" Click="Button_Click_1" >
+                    <Button.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="#FF5B1840" Offset="0.077"/>
+                        </LinearGradientBrush>
+                    </Button.BorderBrush>
+                    <Button.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="#FF5B1840" Offset="0.077"/>
+                        </LinearGradientBrush>
+                    </Button.Foreground>
+                    <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15" />
+                            </Style>
+                    
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="TelegraphApp.CreatePost.PageCreate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TelegraphApp.CreatePost"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700" Background="WhiteSmoke">
+    <Grid Margin="50,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="81*"/>
+            <!--<RowDefinition Height="45*"/>-->
+            <RowDefinition Height="314*"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="TitleBox" Margin="0,0,10,0" Grid.Row="0" Text="" Height="70" Padding="10,10,0,0" FontSize="40" VerticalAlignment="Bottom" FontFamily="Arial Black"/>
+        <TextBlock Opacity="0.6" Padding="10,10,0,0" FontSize="40" VerticalAlignment="Bottom" TextAlignment="left" Height="70"  IsHitTestVisible="False" Text="Enter Title" FontFamily="Arial Black" Margin="0,0,10,0" >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=TitleBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <!--<TextBox Name="DescBox" Margin="0,0,10,0" Grid.Row="1" Text="" Height="40" Padding="10,5,0,0" FontSize="20" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Opacity="0.6" Padding="10,0,0,0" FontSize="20" VerticalAlignment="Center" TextAlignment="left"  IsHitTestVisible="False" Text="Enter Description" Margin="0,0,10,0" >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=DescBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>-->
+        <RichTextBox FontSize="18" Name="Texty" Grid.Row="2" Margin="0,0,10,50" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+        <CheckBox Name="SpelChec" Content="Spelling Check" HorizontalAlignment="Left" Margin="0,310,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="14" FontFamily="Jura Medium" IsChecked="False" Click="SpelChec_Checked"/>
+        <Border Grid.Row="2" Height="40" VerticalAlignment="Bottom" Margin="0,0,4,4" CornerRadius="10" BorderThickness="1.5" BorderBrush="#FF531EB5" HorizontalAlignment="Right" Width="100" PreviewMouseDown="Border_PreviewMouseDown">
+            <TextBlock Name="Subm" Text="Create" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Bahnschrift"/>
+        </Border>
+    </Grid>
+</UserControl>
