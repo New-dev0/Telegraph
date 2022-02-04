@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -12,21 +13,13 @@ namespace TelegraphApp.MediaUpload
     /// </summary>
     public partial class SingleUpload : UserControl
     {
-        private readonly DispatcherTimer timer = new DispatcherTimer();
-
+    
         public SingleUpload(string path, string url)
         {
             InitializeComponent();
-            timer.Tick += new EventHandler(Timer_TICK);
-            timer.Interval = new TimeSpan(0, 0, 2);
             Create_up_window(path, url);
             MainUserControl.Saved_Media_Page = this;
 
-        }
-        private void Timer_TICK(object sender, EventArgs e)
-        {
-            ClipCopy.Visibility = Visibility.Collapsed;
-            timer.IsEnabled = false;
         }
 
         private void Create_up_window(string path, string url)
@@ -51,12 +44,12 @@ namespace TelegraphApp.MediaUpload
             MediaName.Text = Path.GetFileName(path) + "   " + length;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(uRLbOX.Text);
             ClipCopy.Visibility = Visibility.Visible;
-
-            timer.Start();
+            await Task.Delay(2000);
+            ClipCopy.Visibility = Visibility.Collapsed;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

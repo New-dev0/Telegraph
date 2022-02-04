@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Kvyk.Telegraph.Exceptions;
+using Kvyk.Telegraph.Models;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -19,95 +21,88 @@ namespace TelegraphApp.ViewPosts
             MakeUpPage();
         }
 
-        private void MakeUpPage()
+        private async void MakeUpPage()
         {
-            Dictionary<string, string> dict = new()
+            PageList pages;
+            try
             {
-                {
-                    "access_token",
-                    Properties.Settings.Default.ACCESS_TOKEN
-                }
-            };
-            JObject data = App.Make_request("getPageList", dict);
-            // MessageBox.Show(data.ToString());
-            if (data["ok"].ToString() == "True")
+                pages = await App.client.GetPageList();
+            }
+            catch (TelegraphException ex)
             {
-                JObject inp = (JObject)data["result"];
-                if (inp != null && inp["total_count"].ToString() == "0")
-                {
-                    Show_NoFeeds();
-                    return;
-                }
-                DataToTemplate(inp);
+                App.Error_box(ex.Message);
                 return;
             }
-            if (data.GetValue("error") != null)
+            if (pages.TotalCount == 0)
             {
-                MessageBox.Show(data["error"].ToString());
+                Show_NoFeeds();
+                return;
             }
-
+            DataToTemplate(pages.Pages);
         }
 
-        private void Show_NoFeeds()
+    
+
+    private void Show_NoFeeds()
+    {
+        Content = new TextBlock()
         {
-            Content = new TextBlock()
+            Width = 500,
+            Height = 100,
+            Text = "You have No Posts :(",
+            FontSize = 50,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            FontStyle = FontStyles.Italic,
+            Opacity = 0.6,
+            Foreground = Brushes.LightSeaGreen,
+        };
+    }
+
+    private void DataToTemplate(List<Kvyk.Telegraph.Models.Page> data)
+    {
+        //MessageBox.Show(data.ToString());
+        RightGrid.Children.Clear();
+        int curr = 1;
+        int height = 15;
+        int rows = 0;
+        foreach (Kvyk.Telegraph.Models.Page tok in data)
+        {
+            // MessageBox.Show(tok.ToString());
+            UserControl ui = new PostView(tok)
             {
-                Width = 500,
-                Height = 100,
-                Text = "You have No Posts :(",
-                FontSize = 50,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                FontStyle = FontStyles.Italic,
-                Opacity = 0.6,
-                Foreground = Brushes.LightSeaGreen,
+                Width = 150,
+                Height = 150,
+                VerticalAlignment = VerticalAlignment.Top
+
+
             };
-        }
-
-        private void DataToTemplate(JObject data)
-        {
-            //MessageBox.Show(data.ToString());
-            RightGrid.Children.Clear();
-            int curr = 1;
-            int height = 15;
-            int rows = 0;
-            foreach (JToken tok in data.GetValue("pages").ToList())
+            rows++;
+            if (curr == 1)
             {
-                // MessageBox.Show(tok.ToString());
-                UserControl ui = new PostView(tok)
+                ui.HorizontalAlignment = HorizontalAlignment.Left;
+                ui.Margin = new Thickness(80, height, 0, 0);
+                curr++;
+            }
+            else if (curr == 2)
+            {
                 {
-                    Width = 150,
-                    Height = 150,
-                    VerticalAlignment = VerticalAlignment.Top
-
-
-                };
-                rows++;
-                if (curr == 1)
-                {
-                    ui.HorizontalAlignment = HorizontalAlignment.Left;
-                    ui.Margin = new Thickness(80, height, 0, 0);
+                    ui.HorizontalAlignment = HorizontalAlignment.Center;
+                    ui.Margin = new Thickness(0, height, 50, 0);
                     curr++;
                 }
-                else if (curr == 2)
-                {
-                    {
-                        ui.HorizontalAlignment = HorizontalAlignment.Center;
-                        ui.Margin = new Thickness(0, height, 50, 0);
-                        curr++;
-                    }
-                }
-                else
-                {
-                    ui.HorizontalAlignment = HorizontalAlignment.Right;
-                    ui.Margin = new Thickness(0, height, 130, 0);
-                    curr = 1;
-                    height += 150 + 25;
-
-                }
-                RightGrid.Children.Add(ui);
             }
-            Content = RightGrid;
+            else
+            {
+                ui.HorizontalAlignment = HorizontalAlignment.Right;
+                ui.Margin = new Thickness(0, height, 130, 0);
+                curr = 1;
+                height += 150 + 25;
+
+            }
+            RightGrid.Children.Add(ui);
         }
+        Content = RightGrid;
     }
+}
 }

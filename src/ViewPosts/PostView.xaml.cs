@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Kvyk.Telegraph.Models;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,15 +12,13 @@ namespace TelegraphApp.ViewPosts
     public partial class PostView : UserControl
     {
         public static string url;
-        public PostView(JToken data)
+        public PostView(Kvyk.Telegraph.Models.Page data)
         {
             InitializeComponent();
-            TitleBox.Text = data["title"].ToString();
-            Views.Text = data["views"].ToString();
-            url = data["url"].ToString();
-            // #TODO
-            // URLBox.Text = url;
-            Desc.Text = data["description"].ToString();
+            TitleBox.Text = data.Title;
+            Views.Text = data.Views.ToString();
+            url = data.Url.ToString();
+            Desc.Text = data.Description;
         }
 
         private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)

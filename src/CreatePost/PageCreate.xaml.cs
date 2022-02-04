@@ -25,14 +25,14 @@ namespace TelegraphApp.CreatePost
             Texty.SpellCheck.IsEnabled = (bool)SpelChec.IsChecked;
         }
 
-        private void Border_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private async void Border_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (TitleBox.Text.Length == 0)
             {
                 App.Error_box("Title can`t be Empty!");
                 return;
             }
-            TextRange rt = new TextRange(Texty.Document.ContentStart, Texty.Document.ContentEnd);
+            TextRange rt = new(Texty.Document.ContentStart, Texty.Document.ContentEnd);
             if (rt.Text.Length == 0)
             {
                 App.Error_box("Content can`t be Empty!");
@@ -47,9 +47,8 @@ namespace TelegraphApp.CreatePost
             }
             var Mk = new TelegraphMarkdown();
             var nodes = Mk.ParseMarkdown(rt.Text);
-            var result = client.CreatePage(TitleBox.Text, nodes);
-            var nr = Task<Kvyk.Telegraph.Models.Page>.Run(() => result);
-            MessageBox.Show(nr.Result.ToString());
+            var result = await client.CreatePage(TitleBox.Text, nodes);
+            MessageBox.Show(result.ToString());
             MessageBox.Show("Created");
 
         }

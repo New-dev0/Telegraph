@@ -58,5 +58,17 @@ namespace TelegraphApp.Properties {
                 this["AUTH_URL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DARK_MODE {
+            get {
+                return ((bool)(this["DARK_MODE"]));
+            }
+            set {
+                this["DARK_MODE"] = value;
+            }
+        }
     }
 }

@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TelegraphApp"
         mc:Ignorable="d"
-        Title="Telegraph" Width="900" Height="500" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" > 
+        Title="Telegraph" Width="900" Height="500"  WindowState="Maximized" WindowStartupLocation="CenterScreen"> 
     <Grid>
+        
 
     </Grid>
 </Window>

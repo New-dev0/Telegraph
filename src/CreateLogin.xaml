@@ -4,49 +4,64 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TelegraphApp"
-        mc:Ignorable="d"
-         Background="Black" BorderBrush="White" FontFamily="Cascadia Mono">
-    <Grid Background="white">
-        <Label Content="Create your Login" Background="#FF100C0E" Margin="0,0,0,320" Padding="40,20,0,0" Foreground="White" FontFamily="fonts/#Luckiest Guy" FontSize="45"/>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="295" Width="800">
-            <Grid Margin="0,0,227,0">
-                <Border Margin="108,0,-96,15"  BorderThickness="1" Background="#FF57D4C9" BorderBrush="Black" CornerRadius="30">
-                    <Grid>
-                        <StackPanel Margin="20,20,0,19">
-                            <TextBlock Text="Enter Short Name :" Margin="0,0,260,0" Foreground="white" FontSize="25"/>
-                            <TextBox FontSize="15" x:Name="TEXTBOX" Margin="0,-25,-250,0" TextChanged="TextBox_TextChanged" Text="" BorderThickness="0" Padding="10,4,0,0"  Height="25" Width="228"/>
-                        </StackPanel>
-                        <StackPanel Margin="20,70,0,19" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBlock Text="Enter Author Name:" Foreground="white" FontSize="25" Width="263"/>
-                            <TextBox x:Name="AUTHOR_INPUT" TextChanged="AUTHOR_INPUT_TextChanged" FontSize="15" Text="" BorderThickness="0" Padding="10,4,0,0"  Height="25" Width="228" Margin="0,-25,-250,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="White"/>
-                            <TextBlock x:Name="AUTHOR_PLACEHOLDER" Opacity="0.5" Background="White" FontSize="15" Text="(Optional)" Padding="10,4,0,0"  Height="25" Width="228" Margin="0,-25,-250,0" HorizontalAlignment="Right" VerticalAlignment="Top" PreviewMouseDown="AUTHOR_PLACEHOLDER_PreviewMouseDown" Foreground="#FFD61313"/>
-                        </StackPanel>
-                        <StackPanel Margin="20,120,0,19">
-                            <TextBlock Text="Enter Author Url:" Margin="0,0,260,0" Foreground="white" FontSize="25"/>
-                            <TextBox FontSize="15" Name="AUTH_URL_BOX" Margin="0,-25,-250,0" Text="" BorderThickness="0" Padding="10,4,0,0"  Height="25" Width="228" TextChanged="AUTH_URL_BOX_TextChanged" Foreground="#FF3C3FE8"/>
-                            <TextBlock x:Name="AUT_URI_PLACEHOLDER" Opacity="0.5" Background="White" FontSize="15" Text="(Optional)" Padding="10,4,0,0"  Height="25" Width="228" Margin="0,-25,-250,0" Foreground="#FFD61313" PreviewMouseDown="AUT_URI_PLACEHOLDER_PreviewMouseDown"/>
-
-                        </StackPanel>
-                        <Button Name="SUB_BUTTON"  Width="450" Height="50" Margin="0,0,0,30"
-                            HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Create an Account" FontFamily="Bahnschrift SemiBold SemiCondensed" FontSize="24" Foreground="White" MouseEnter="SUB_BUTTON_MouseEnter" MouseLeave="SUB_BUTTON_MouseLeave" Click="SUB_BUTTON_Click">
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="15" />
-                                </Style>
-                            </Button.Resources>
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Black" Offset="0.77"/>
-                                    <GradientStop Color="#FF040309" Offset="0.75"/>
-                                    <GradientStop Color="#FF040309" Offset="0.457"/>
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-                    </Grid>
-                </Border>
-
-            </Grid>
-
+        mc:Ignorable="d">
+    <Grid>
+        <Grid Name="HeaBG" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="100" MinWidth="100">
+            <Label Name="HealLa" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Content="Create your Login" FontFamily="Microsoft YaHei" FontWeight="Bold"/>
+            <ToggleButton Name="DakLigBu" Margin="0,0,30,0" Background="#FFFDFDFD" VerticalAlignment="Center" HorizontalAlignment="Right" Width="50" Height="50" Click="ToggleButton_Click">
+                <ToggleButton.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="50" />
+                    </Style>
+                </ToggleButton.Resources>
+                <ToggleButton.Content>
+                    <Image Name="Imsu" Width="30" />
+                </ToggleButton.Content>
+            </ToggleButton>
         </Grid>
+        <Grid Margin="20,100,80,0">
+            <Border Name="Conbrd" Margin="30,15,0,74" Width="536" HorizontalAlignment="Left"  CornerRadius="30">
+                <Grid >
+                    <StackPanel Margin="30,40,20,0" >
+                       <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock x:Name="T1" Text="Enter Short Name:" Padding="7" VerticalAlignment="Center" FontSize="18" Background="White" FontFamily="Yu Gothic UI Semibold" />
+                            <TextBox Name="ShortBox" Margin="32,0,0,0" Padding="5,10,0,0" Text="" Width="212" FontSize="14" TextChanged="ShortBox_TextChanged"/>
+                        </StackPanel>
+                            <StackPanel Margin="0,40,0,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <TextBlock Name="T2" Text="Enter Author Name:" Padding="7" VerticalAlignment="Center" FontSize="18" Background="White"  FontFamily="Yu Gothic UI Semibold"/>
+                                <TextBox Name="AuthorBox" Margin="20,0,0,0" Padding="5,10,0,0" Text="" Width="212" FontSize="14" TextChanged="AUTHOR_INPUT_TextChanged" />
+                            </StackPanel>
+                            <StackPanel Margin="0,40,0,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock  Name="T3" Text="Enter Profile Url:" Padding="7" VerticalAlignment="Center" FontSize="18" Background="White"  FontFamily="Yu Gothic UI Semibold"/>
+                                <TextBox Name="ProUrlBox" Text="" Margin="47,0,0,0" Padding="5,10,0,0" Width="212" FontSize="14" TextChanged="Profile_URL_BOX_TextChanged" />
+                            </StackPanel>
+                        </StackPanel>
+       
+                    <Border Name="bord" MaxWidth="350" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Height="auto">
+
+                        <Expander Name="Ecpa" IsExpanded="False" Margin="20,0,20,0" FontSize="14" Header="Login with Access Token" FontWeight="Normal" FontFamily="Segoe UI Historic" Background="{x:Null}" Expanded="Ecpa_Expanded" Collapsed="Ecpa_Collapsed">
+                            <TextBox Name="AccessBox" Margin="10,7,10,0"  Text="" />
+                        </Expander>
+                    </Border>
+
+
+
+                </Grid>
+            </Border>
+            
+        </Grid>
+        <Button MouseEnter="BttEXT_MouseEnter" MouseLeave="BttEXT_MouseLeave" Name="SMBUT" Width="140" Height="60" HorizontalAlignment="Right"  Margin="0,0,80,40" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Click="SMBUT_Click">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Name="IConimg" Height="20" Margin="-5,0,0,0" Source="/src/assets/create_user.png" Width="20" />
+                    <TextBlock  Name="BttEXT" FontSize="24" Text="Login" Margin="12,-2,0,0" Foreground="White"  FontFamily="Segoe UI Black"/>
+                </StackPanel>
+            </Button.Content>
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </UserControl>

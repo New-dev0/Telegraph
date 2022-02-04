@@ -67,8 +67,8 @@ namespace TelegraphApp.MediaUpload
                 output += $"{link}\n";
             }
             // remove new line
-            output = output.Substring(0, output.Length - 1);
-            SaveFileDialog dialog = new SaveFileDialog
+            output = output[0..^1];
+            SaveFileDialog dialog = new()
             {
                 DefaultExt = ".txt",
                 FileName = "Telegraph"

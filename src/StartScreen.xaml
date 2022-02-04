@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="TelegraphApp.StartScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TelegraphApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/src/assets/logo.png" Width="250" />
+            <TextBlock Name="TextBlo" Margin="0,-10,0,0" FontSize="22" HorizontalAlignment="Center" Text="Create and Share blogs easily!" FontStyle="Italic" FontFamily="Segoe UI Semibold"  />
+        </StackPanel>
+        <ProgressBar Name="PRopa" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Margin="0,0,0,40" FontFamily="Arial Black" LargeChange="5" IsIndeterminate="True"  />
+
+    </Grid>
+</UserControl>

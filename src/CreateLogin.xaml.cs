@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Kvyk.Telegraph.Exceptions;
+using Kvyk.Telegraph.Models;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace TelegraphApp
 {
@@ -12,130 +16,194 @@ namespace TelegraphApp
     /// </summary>
     public partial class CreateLogin : UserControl
     {
-        public string name = "";
-        public string author_name = "";
-        public string short_url = "";
-        private Brush submit_button_bg;
-        private bool SAVED_BG = false;
+
+        private List<TextBlock> Tblocks;
 
         public CreateLogin()
         {
             InitializeComponent();
+            Tblocks = new List<TextBlock> { T1, T2, T3 };
+            ToggleMode();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TEXTBOX.Text.Length > 32)
+            App.DarkMode = !App.DarkMode;
+            ToggleMode();
+        }
+
+        private void ToggleMode()
+        {
+            string button_icon;
+
+            if (App.DarkMode)
             {
-                App.Error_box("Short Name should be of length: 1-32");
+                Brush BgCOLOR = Helper.Convert("#37474F");
+                HeaBG.Background = BgCOLOR;
+                HealLa.Foreground = Brushes.White;
+                Background = BgCOLOR;
+                Conbrd.Background = Helper.Convert("#263238");
+                SMBUT.Background = Helper.Convert("#4A5459");
+                button_icon = "moon";
+                foreach (TextBlock block in Tblocks)
+                {
+                    block.Background = null;
+                    block.Foreground = Brushes.White;
+                }
             }
             else
             {
-                name = TEXTBOX.Text;
+                Brush BGColor = Helper.Convert("#ADD8E6");
+                HeaBG.Background = BGColor;
+                HealLa.Foreground = Helper.Convert("#FF32656F");
+                Background = BGColor;
+                Conbrd.Background = Brushes.Azure;
+                SMBUT.Background = Helper.Convert("#FF8B7ADE");
+                button_icon = "sun";
+                foreach (TextBlock block in Tblocks)
+                {
+                    block.Background = Brushes.White;
+                    block.Foreground = Brushes.Black;
+                }
+            }
+            Imsu.Source = new BitmapImage(
+                new Uri($"/src/assets/outlined_{button_icon}.png", UriKind.Relative)
+            );
+            ExpandOrCollapse();
+            DakLigBu.IsChecked = App.DarkMode;
+        }
+
+        private void Ecpa_Expanded(object sender, RoutedEventArgs e)
+        {
+            ExpandOrCollapse();
+        }
+
+
+        private void Ecpa_Collapsed(object sender, RoutedEventArgs e)
+        {
+            ExpandOrCollapse();
+        }
+
+        private void ExpandOrCollapse()
+        {
+            Brush Back;
+            Brush Fore;
+            if (Ecpa.IsExpanded && App.DarkMode)
+            {
+                Back = Helper.Convert("#131418");
+                Fore = Brushes.White;
+            }
+            else
+            {
+                Back = Helper.Convert("#FFF5F4F1");
+                Fore = Helper.Convert("#FF192D3A");
+            }
+            Ecpa.Foreground = Fore;
+            bord.Background = Back;
+
+        }
+
+        private void BttEXT_MouseEnter(object sender, MouseEventArgs e)
+        {
+            IConimg.Visibility = Visibility.Collapsed;
+            BttEXT.Foreground = Helper.Convert("#00695C");
+        }
+
+        private void BttEXT_MouseLeave(object sender, MouseEventArgs e)
+        {
+            IConimg.Visibility = Visibility.Visible;
+            BttEXT.Foreground = Brushes.White;
+        }
+
+        private void ShortBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ShortBox.Text.Length > 32)
+            {
+                App.Error_box("Short Name should be of length: 1-32");
             }
         }
 
-        /*
-          private void AUTHOR_PLACEHOLDER_MouseEnter(object sender, MouseEventArgs e)
-          {
-              AUTHOR_PLACEHOLDER.Visibility = Visibility.Hidden;
-          }
-        */
-
         private void AUTHOR_INPUT_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (AUTHOR_INPUT.Text.Length > 120)
+            if (AuthorBox.Text.Length > 120)
             {
                 App.Error_box("Author Name should be of length 0-120");
 
             }
-            else
-            {
-                author_name = AUTHOR_INPUT.Text;
-            }
         }
 
 
-        private void AUTHOR_PLACEHOLDER_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            AUTHOR_PLACEHOLDER.Visibility = Visibility.Hidden;
-        }
 
-        private void AUTH_URL_BOX_TextChanged(object sender, TextChangedEventArgs e)
+        private void Profile_URL_BOX_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (AUTH_URL_BOX.Text.Length > 512)
+            if (ProUrlBox.Text.Length > 512)
             {
                 App.Error_box("Author URL should be of length 0-512");
 
             }
+        }
+
+
+        private async void SMBUT_Click(object sender, RoutedEventArgs e)
+        {
+            Account acc;
+            if (AccessBox.Text != "")
+            {
+                App.client.AccessToken = AccessBox.Text;
+                try
+                {
+                    acc = await App.client.GetAccountInfo();
+                }
+                catch (TelegraphException ex)
+                {
+                    App.client.AccessToken = null;
+                    App.Error_box(ex.Message);
+                    return;
+                }
+            }
             else
             {
-                author_name = AUTH_URL_BOX.Text;
+                if (ShortBox.Text == "")
+                {
+                    App.Error_box("Short Name can't be Empty.");
+                    return;
+                }
+                string short_name = ShortBox.Text;
+                string author_name = null;
+                string profile_url = null;
+
+                if (AuthorBox.Text != "")
+                {
+                    author_name = AuthorBox.Text;
+                };
+                if (ProUrlBox.Text != "")
+                {
+                    profile_url = ProUrlBox.Text;
+                }
+                try
+                {
+                    acc = await App.client.CreateAccount(short_name, author_name, profile_url);
+                }
+                catch (TelegraphException ex)
+                {
+                    if (ex.Message == "AUTHOR_URL_INVALID")
+                    {
+                        App.Error_box("Invalid Url in Profle Url Box.");
+                        return;
+                    }
+                    MessageBox.Show("what");
+                    MessageBox.Show(ex.Message);
+                    return;
+                };
             }
-        }
-
-        private void AUT_URI_PLACEHOLDER_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            AUT_URI_PLACEHOLDER.Visibility = Visibility.Hidden;
-        }
-
-
-        private void SUB_BUTTON_MouseEnter(object sender, MouseEventArgs e)
-        {
-            submit_button_bg = SUB_BUTTON.Background;
-            SAVED_BG = true;
-            SUB_BUTTON.Background = Brushes.White;
-            SUB_BUTTON.Foreground = Brushes.Black;
-        }
-
-        private void SUB_BUTTON_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (SAVED_BG)
-            {
-                SUB_BUTTON.Background = submit_button_bg;
-                SUB_BUTTON.Foreground = Brushes.White;
-            }
-        }
-
-        private void SUB_BUTTON_Click(object sender, RoutedEventArgs e)
-        {
-            if (name == "")
-            {
-                App.Error_box("Shortname is Mandatory.");
-                return;
-            }
-            Create_account();
-            Window win = Window.GetWindow(this);
-            win.Width = 900;
-            win.Height = 500;
-            win.Content = new MainUserControl(true);
-        }
-
-        private void Create_account()
-        {
-            var Value = new Dictionary<string, string>
-            {
-                {"short_name", name},
-            };
-            if (author_name != "")
-            {
-                Value.Add("author_name", author_name);
-            };
-            if (short_url != "")
-            {
-                Value.Add("author_url", short_url);
-            }
-            JObject result = App.Make_request("createAccount", Value);
-            if (result["ok"].ToString() != "true" && result.GetValue("error") != null)
-            {
-                App.Error_box(result["error"].ToString());
-                return;
-            }
-            Properties.Settings.Default.ACCESS_TOKEN = result["result"]["access_token"].ToString();
-            Properties.Settings.Default.AUTH_URL = result["result"]["auth_url"].ToString();
+            App.client.AccessToken = acc.AccessToken;
+            Properties.Settings.Default.ACCESS_TOKEN = acc.AccessToken;
             Properties.Settings.Default.Save();
+            Window win = Window.GetWindow(this);
+            win.WindowState = WindowState.Maximized;
+            win.Content = new MainUserControl(true);
 
-
-        }
+            }
     }
 }

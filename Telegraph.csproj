@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>TelegraphApp</RootNamespace>
+    <PackageId>TelegraphApp</PackageId>
+    <PackageIcon>app.ico</PackageIcon>
+    <AssemblyName>TelegraphApp</AssemblyName>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="src\assets\arrow.png" />
+    <None Remove="src\assets\cancel.png" />
+    <None Remove="src\assets\create_user.png" />
+    <None Remove="src\assets\drop.png" />
+    <None Remove="src\assets\logo.png" />
+    <None Remove="src\assets\moon.png" />
+    <None Remove="src\assets\outlined_moon.png" />
+    <None Remove="src\assets\outlined_sun.png" />
+    <None Remove="src\assets\plane.png" />
+    <None Remove="src\assets\sun.png" />
+    <None Remove="src\assets\token_dark.png" />
+    <None Remove="src\assets\token_light.png" />
+    <None Remove="src\fonts\Volkhov-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.ico" />
+    <Resource Include="src\assets\arrow.png" />
+    <Resource Include="src\assets\cancel.png" />
+    <Resource Include="src\assets\create_user.png" />
+    <Resource Include="src\assets\drop.png" />
+    <Resource Include="src\assets\logo.png" />
+    <Resource Include="src\assets\outlined_moon.png" />
+    <Resource Include="src\assets\outlined_sun.png" />
+    <Resource Include="src\assets\plane.png" />
+    <Resource Include="src\assets\token_dark.png" />
+    <Resource Include="src\assets\moon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\assets\sun.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\assets\token_light.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="src\fonts\Volkhov-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Kvyk.Telegraph.Parsers" Version="1.1.1" />
+    <PackageReference Include="LottieSharp" Version="1.1.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="app.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="src\assets\sun.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
