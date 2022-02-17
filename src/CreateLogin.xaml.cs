@@ -1,6 +1,5 @@
 ﻿using Kvyk.Telegraph.Exceptions;
 using Kvyk.Telegraph.Models;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -161,6 +160,11 @@ namespace TelegraphApp
                     App.Error_box(ex.Message);
                     return;
                 }
+                catch (Exception ex)
+                {
+                    App.OpenErrorWin(ex);
+                    return;
+                }
             }
             else
             {
@@ -192,7 +196,6 @@ namespace TelegraphApp
                         App.Error_box("Invalid Url in Profle Url Box.");
                         return;
                     }
-                    MessageBox.Show("what");
                     MessageBox.Show(ex.Message);
                     return;
                 };
@@ -204,6 +207,6 @@ namespace TelegraphApp
             win.WindowState = WindowState.Maximized;
             win.Content = new MainUserControl(true);
 
-            }
+        }
     }
 }

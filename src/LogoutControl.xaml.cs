@@ -1,7 +1,4 @@
 ﻿using Kvyk.Telegraph.Exceptions;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,10 +19,11 @@ namespace TelegraphApp
         {
             if ((bool)RevokeTok.IsChecked)
             {
-                try {
+                try
+                {
                     await App.client.RevokeAccessToken();
                 }
-                catch ( TelegraphException ex)
+                catch (TelegraphException ex)
                 {
                     App.Error_box(ex.Message);
                     return;

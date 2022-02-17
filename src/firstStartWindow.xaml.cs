@@ -53,7 +53,7 @@ namespace TelegraphApp
 
         private void StartBt_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-              StartBt.Foreground = Brushes.White;
+            StartBt.Foreground = Brushes.White;
         }
         private void Toggle_Mode()
         {

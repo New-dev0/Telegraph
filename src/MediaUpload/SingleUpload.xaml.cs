@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace TelegraphApp.MediaUpload
 {
@@ -13,7 +12,7 @@ namespace TelegraphApp.MediaUpload
     /// </summary>
     public partial class SingleUpload : UserControl
     {
-    
+
         public SingleUpload(string path, string url)
         {
             InitializeComponent();

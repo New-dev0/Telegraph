@@ -10,6 +10,21 @@
     <PackageIcon>app.ico</PackageIcon>
     <AssemblyName>TelegraphApp</AssemblyName>
     <ApplicationIcon>app.ico</ApplicationIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>True</SignAssembly>
+    <Copyright>New-dev0 2022</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/New-dev0/Telegraph</RepositoryUrl>
+    <PackageTags>telegraph, telegram, blog</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +32,7 @@
     <None Remove="src\assets\cancel.png" />
     <None Remove="src\assets\create_user.png" />
     <None Remove="src\assets\drop.png" />
+    <None Remove="src\assets\error.png" />
     <None Remove="src\assets\logo.png" />
     <None Remove="src\assets\moon.png" />
     <None Remove="src\assets\outlined_moon.png" />
@@ -34,6 +50,7 @@
     <Resource Include="src\assets\cancel.png" />
     <Resource Include="src\assets\create_user.png" />
     <Resource Include="src\assets\drop.png" />
+    <Resource Include="src\assets\error.png" />
     <Resource Include="src\assets\logo.png" />
     <Resource Include="src\assets\outlined_moon.png" />
     <Resource Include="src\assets\outlined_sun.png" />
@@ -74,6 +91,10 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
     <None Update="src\assets\sun.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

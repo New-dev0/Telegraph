@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:TelegraphApp"
              mc:Ignorable="d" Background="WhiteSmoke"
            >
-    <Grid>
+    <Grid Height="584" Width="958">
 
-        <Grid Name="SIDE_GRID" Background="#FF1E3D59" Width="185" Height="500" HorizontalAlignment="Left" VerticalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <Border BorderThickness="0" CornerRadius="2,10,10,0" >
+        <Grid Name="SIDE_GRID" Background="#FF1E3D59" Width="200" HorizontalAlignment="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <Border BorderThickness="0" CornerRadius="2,10,10,0" Margin="0,-34,0,-37" >
                     <Grid  VerticalAlignment="Center" HorizontalAlignment="Center">
                         <StackPanel>
                             <Button Name="ButtonFirst" Content="View Posts" Margin="0" Width="185" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="24" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFFBFBFB" Click="ButtonFirst_Click"  >

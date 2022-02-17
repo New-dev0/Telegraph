@@ -1,9 +1,10 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
+﻿using Kvyk.Telegraph.Exceptions;
+using Kvyk.Telegraph.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -25,65 +26,72 @@ namespace TelegraphApp
         public UploadMedia()
         {
             InitializeComponent();
-            timer.Tick += new EventHandler(Timer_TICK);
-            timer.Interval = new TimeSpan(0, 0, 10);
         }
 
-        private void Timer_TICK(object sender, EventArgs e)
-        {
-            InfoBox.Visibility = Visibility.Collapsed;
-            timer.IsEnabled = false;
-        }
 
-        private void Border_Drop(object sender, DragEventArgs e)
+        private async void Border_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            try
             {
-                string[] files_ = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach (string file in files_)
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 {
-                    if (Directory.Exists(file))
+                    string[] files_ = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    foreach (string file in files_)
                     {
-                        MessageBoxResult ans = Ask_confirmation();
-                        if (ans.ToString() != "Yes")
+                        if (Directory.Exists(file))
                         {
+                            MessageBoxResult ans = Ask_confirmation();
+                            if (ans.ToString() != "Yes")
+                            {
+                                return;
+                            };
+                            await Multiple_upload_from_dir(file);
                             return;
-                        };
-                        Multiple_upload_from_dir(file);
+                        }
+                        if (!CheckISValidEXT(file))
+                        {
+                            TempShowInfoBox("Not A Valid file format.", true);
+                            return;
+                        }
+                        string upl = await Upload_file(file);
+                        Show_out(file, upl);
                         return;
-                    }
-                    if (!CheckISValidEXT(file))
-                    {
-                        TempShowInfoBox("Not A Valid file format.", true);
-                        return;
-                    }
-                    string upl = Upload_file(file);
-                    Show_out(file, upl);
-                    return;
-                };
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                App.OpenErrorWin(ex);
             }
         }
 
-        private void Multiple_upload_from_dir(string file)
+        private async Task Multiple_upload_from_dir(string file)
         {
-            string[] files = Directory.GetFiles(file);
-            var result = new Dictionary<string, string> { };
-            foreach (string _ in files)
+            try
             {
-                string small = _.ToLowerInvariant();
-                if (small.EndsWith(".jpg") || small.EndsWith(".png"))
+                string[] files = Directory.GetFiles(file);
+                var result = new Dictionary<string, string> { };
+                foreach (string _ in files)
                 {
-                    string url_or_error = Upload_file(_, true);
-                    result.Add(_, url_or_error);
+                    string small = _.ToLowerInvariant();
+                    if (small.EndsWith(".jpg") || small.EndsWith(".png"))
+                    {
+                        string url_or_error = await Upload_file(_, true);
+                        result.Add(_, url_or_error);
+                    }
+                };
+                if (result.Count == 0)
+                {
+                    MessageBox.Show("No Image found in given directory.");
+                    return;
                 }
-            };
-            if (result.Count == 0)
-            {
-                MessageBox.Show("No Image found in given directory.");
-                return;
+                App.RIGHT_GRID.Children.Clear();
+                App.RIGHT_GRID.Children.Add(new MultipleUpload(result));
             }
-            App.RIGHT_GRID.Children.Clear();
-            App.RIGHT_GRID.Children.Add(new MultipleUpload(result));
+            catch (Exception ex)
+            {
+                App.OpenErrorWin(ex);
+            }
         }
 
         private MessageBoxResult Ask_confirmation()
@@ -97,7 +105,7 @@ namespace TelegraphApp
             return List.Contains(Path.GetExtension(path).ToUpperInvariant());
         }
 
-        private void TempShowInfoBox(string text, bool error = false)
+        private async Task TempShowInfoBox(string text, bool error = false)
         {
             InfoBox.Text = text;
             if (error)
@@ -111,10 +119,11 @@ namespace TelegraphApp
                 INFO__ERRCOLOR_CHNGED = false;
             }
             InfoBox.Visibility = Visibility.Visible;
-            timer.Start();
+            await Task.Delay(2000);
+            InfoBox.Visibility = Visibility.Collapsed;
         }
 
-        private void Border_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private async void Border_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
@@ -124,7 +133,7 @@ namespace TelegraphApp
             bool show = (bool)dialog.ShowDialog();
             if (show == true)
             {
-                string file = Upload_file(dialog.FileName);
+                string file = await Upload_file(dialog.FileName);
                 // string file = "A";                     // Test Purpose
                 Show_out(dialog.FileName, file);
             }
@@ -140,23 +149,33 @@ namespace TelegraphApp
         }
 
 
-        private string Upload_file(string path, bool allow_error = false)
+        private async Task<string> Upload_file(string path, bool allow_error = false)
         {
+            TelegraphFile tok;
             string filename = Path.GetFileName(path);
-            TempShowInfoBox("Uploading " + filename);
-            JObject tok = App.Make_request("upload", path);
-            // MessageBox.Show(tok.ToString());
-            if (tok.GetValue("error") != null)
+            try
             {
-                string error = tok["error"].ToString();
+                await TempShowInfoBox("Uploading " + filename);
+                string ext = Path.GetExtension(path).Substring(1);
+
+                tok = await App.client.UploadFile(new FileToUpload { Bytes = File.ReadAllBytes(path), Type = "image/" + ext });
+            }
+            catch (TelegraphException er)
+            {
+                string error = er.Message;
                 if (allow_error)
                 {
                     return error;
                 }
-                TempShowInfoBox(filename + " : " + error, true);
+                await TempShowInfoBox(filename + " : " + error, true);
                 return "";
             }
-            return "https://telegra.ph" + tok.GetValue("src").ToString();
+            catch (Exception er)
+            {
+                App.OpenErrorWin(er);
+                return null;
+            }
+            return tok.Link;
 
 
 
