@@ -9,7 +9,7 @@ App made in CSharp in .NET [WPF] using Telegraph Api.
 - Dark Mode. [WIP]
 - Good (Un)Installer ?
 -  Other Features ?
--  ...
+-  Etc....
 
 
 ### Want to Chat about it ?
