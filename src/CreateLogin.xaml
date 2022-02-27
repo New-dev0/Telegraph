@@ -8,16 +8,7 @@
     <Grid>
         <Grid Name="HeaBG" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="100" MinWidth="100">
             <Label Name="HealLa" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Content="Create your Login" FontFamily="Microsoft YaHei" FontWeight="Bold"/>
-            <ToggleButton Name="DakLigBu" Margin="0,0,30,0" Background="#FFFDFDFD" VerticalAlignment="Center" HorizontalAlignment="Right" Width="50" Height="50" Click="ToggleButton_Click">
-                <ToggleButton.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="50" />
-                    </Style>
-                </ToggleButton.Resources>
-                <ToggleButton.Content>
-                    <Image Name="Imsu" Width="30" />
-                </ToggleButton.Content>
-            </ToggleButton>
+            <local:DarkLightButton x:Name="DakLigBu" HorizontalAlignment="Right" Width="50" Height="50" Margin="0,0,30,0" Click="ToggleButton_Click"/>
         </Grid>
         <Grid Margin="20,100,80,0">
             <Border Name="Conbrd" Margin="30,15,0,74" Width="536" HorizontalAlignment="Left"  CornerRadius="30">

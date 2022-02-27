@@ -29,12 +29,12 @@ namespace TelegraphApp
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             App.DarkMode = !App.DarkMode;
+            DarkLightButton.ToggleMode();
             ToggleMode();
         }
 
         private void ToggleMode()
         {
-            string button_icon;
 
             if (App.DarkMode)
             {
@@ -44,7 +44,6 @@ namespace TelegraphApp
                 Background = BgCOLOR;
                 Conbrd.Background = Helper.Convert("#263238");
                 SMBUT.Background = Helper.Convert("#4A5459");
-                button_icon = "moon";
                 foreach (TextBlock block in Tblocks)
                 {
                     block.Background = null;
@@ -59,16 +58,12 @@ namespace TelegraphApp
                 Background = BGColor;
                 Conbrd.Background = Brushes.Azure;
                 SMBUT.Background = Helper.Convert("#FF8B7ADE");
-                button_icon = "sun";
                 foreach (TextBlock block in Tblocks)
                 {
                     block.Background = Brushes.White;
                     block.Foreground = Brushes.Black;
                 }
             }
-            Imsu.Source = new BitmapImage(
-                new Uri($"/src/assets/outlined_{button_icon}.png", UriKind.Relative)
-            );
             ExpandOrCollapse();
             DakLigBu.IsChecked = App.DarkMode;
         }
@@ -174,8 +169,8 @@ namespace TelegraphApp
                     return;
                 }
                 string short_name = ShortBox.Text;
-                string author_name = null;
-                string profile_url = null;
+                string? author_name = null;
+                string? profile_url = null;
 
                 if (AuthorBox.Text != "")
                 {
@@ -203,7 +198,7 @@ namespace TelegraphApp
             App.client.AccessToken = acc.AccessToken;
             Properties.Settings.Default.ACCESS_TOKEN = acc.AccessToken;
             Properties.Settings.Default.Save();
-            Window win = Window.GetWindow(this);
+            Window? win = App.CRTWIN;
             win.WindowState = WindowState.Maximized;
             win.Content = new MainUserControl(true);
 

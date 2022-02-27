@@ -4,35 +4,40 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TelegraphApp"
-             mc:Ignorable="d" Background="WhiteSmoke"
+             mc:Ignorable="d" Background="WhiteSmoke" d:Width="900" d:Height="500"
            >
-    <Grid Height="584" Width="958">
+    <Grid>
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="auto">
+            
+            <Grid Name="SIDE_GRID" Background="#FF1E3D59" Width="250" HorizontalAlignment="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <Border BorderThickness="0" CornerRadius="2,10,10,0" >
+                    <Grid>
+                        
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <StackPanel Orientation="Vertical">
+                                <Button Name="ButtonFirst" Content="View Posts" Width="200"  Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Bahnschrift SemiBold" FontSize="28" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFFBFBFB" Click="ButtonFirst_Click"/>
 
-        <Grid Name="SIDE_GRID" Background="#FF1E3D59" Width="200" HorizontalAlignment="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <Border BorderThickness="0" CornerRadius="2,10,10,0" Margin="0,-34,0,-37" >
-                    <Grid  VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel>
-                            <Button Name="ButtonFirst" Content="View Posts" Margin="0" Width="185" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="24" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFFBFBFB" Click="ButtonFirst_Click"  >
-
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Margin="0,50,0,0">
-                            <Button x:Name="Button2" Content="Create New" Width="185" Height="50" FontFamily="Bahnschrift SemiBold" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button2_Click"  />
-                        </StackPanel>
-                        <StackPanel Margin="0,100,0,0">
-                            <Button Name="Button3" Content="Upload Media" Margin="0" Width="185" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button3_Click"  >
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,150,0,0">
-                            <Button Name="Button4" Content="Logout" Margin="0" Width="185" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button4_Click"  >
-                            </Button>
-                        </StackPanel>
+                                <Button x:Name="Button2" Content="Create New" Width="200" Height="50" FontFamily="Bahnschrift SemiBold" FontSize="28" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button2_Click"  />
+                                <Button Name="Button3" Content="Upload Media" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="28" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button3_Click"  />
+                                <Button Name="Button4" Content="Logout" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="28" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button4_Click"  />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Border>
+                
+                
             </Grid>
- 
-        <Grid Name="RightGrid" Width="700" Margin="25,0,0,0" HorizontalAlignment="Right">
+            <Button Name="ExColl" Background="White" Padding="2" Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20,30,30,0" Click="Button_Click">
+                <Image Source=".\assets\lefticon.png" />
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+
+        <Grid Name="RightGrid" Margin="250,0,0,0">
 
         </Grid>
     </Grid>

@@ -85,5 +85,17 @@ namespace TelegraphApp
             RightGrid.Children.Add(new LogoutControl());
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (SIDE_GRID.Visibility == Visibility.Collapsed)
+            {
+                SIDE_GRID.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SIDE_GRID.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

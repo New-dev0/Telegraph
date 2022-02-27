@@ -34,7 +34,7 @@ namespace TelegraphApp
             if (token == "")
             {
                 client = new TelegraphClient();
-                Window CRTWIN = new firstStartWindow();
+                CRTWIN = new firstStartWindow();
 
                 CRTWIN.Show();
             }
@@ -44,7 +44,7 @@ namespace TelegraphApp
                 {
                     AccessToken = token
                 };
-                Window CRTWIN = new MainWindow
+                CRTWIN = new MainWindow
                 {
                     Content = new StartScreen(),
                     ResizeMode = ResizeMode.CanResizeWithGrip

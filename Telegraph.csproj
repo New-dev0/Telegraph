@@ -28,41 +28,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\assets\arrow.png" />
-    <None Remove="src\assets\cancel.png" />
     <None Remove="src\assets\create_user.png" />
     <None Remove="src\assets\drop.png" />
     <None Remove="src\assets\error.png" />
+    <None Remove="src\assets\lefticon.png" />
     <None Remove="src\assets\logo.png" />
     <None Remove="src\assets\moon.png" />
     <None Remove="src\assets\outlined_moon.png" />
     <None Remove="src\assets\outlined_sun.png" />
-    <None Remove="src\assets\plane.png" />
     <None Remove="src\assets\sun.png" />
-    <None Remove="src\assets\token_dark.png" />
-    <None Remove="src\assets\token_light.png" />
     <None Remove="src\fonts\Volkhov-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="app.ico" />
-    <Resource Include="src\assets\arrow.png" />
-    <Resource Include="src\assets\cancel.png" />
-    <Resource Include="src\assets\create_user.png" />
     <Resource Include="src\assets\drop.png" />
     <Resource Include="src\assets\error.png" />
+    <Resource Include="src\assets\lefticon.png" />
     <Resource Include="src\assets\logo.png" />
     <Resource Include="src\assets\outlined_moon.png" />
     <Resource Include="src\assets\outlined_sun.png" />
-    <Resource Include="src\assets\plane.png" />
-    <Resource Include="src\assets\token_dark.png" />
     <Resource Include="src\assets\moon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\assets\sun.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="src\assets\token_light.png" />
   </ItemGroup>
 
   <ItemGroup>
