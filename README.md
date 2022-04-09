@@ -4,6 +4,11 @@ App made in CSharp in .NET [WPF] using Telegraph Api.
 
 ### [Download](./build/telegraph.msi)
 
+### Features
+- Multiple image upload from dir.
+- Create page (WIP)
+- Login with Access Token.
+
 ### Todo
 - Good UI and screen gestures [WIP].
 - Dark Mode. [WIP]
